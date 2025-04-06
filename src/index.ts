@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 import { Command } from "commander";
+import command_new from "./new/new";
 
 const program = new Command();
 
 program
     .name("cng")
-    .description("用于快速创建Angular项目，使用默认或自定义配置参数")
+    .description("用于快速创建Angular项目")
     .helpOption("-h, --help", "显示帮助信息")
     .usage("[options] [command]")
     .version("0.1.0", "-V, --version", "显示版本号");
@@ -18,7 +19,7 @@ program
     .command("new")
     .description("创建Angular项目")
     .action(() => {
-
+        command_new();
     });
 
 program.parse();
