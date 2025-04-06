@@ -22,4 +22,11 @@ program
         command_new();
     });
 
+program
+    .command("cssf")
+    .description("添加CSS框架到Angular项目")
+    .action(() => {
+
+    });
+
 program.parse();
