@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { Command } from "commander";
 import command_new from "./new/new";
+import command_cssf from "./css_framework/cssf";
 
 const program = new Command();
 
@@ -26,7 +27,7 @@ program
     .command("cssf")
     .description("添加CSS框架到Angular项目")
     .action(() => {
-
+        command_cssf();
     });
 
 program.parse();
