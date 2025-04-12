@@ -14,11 +14,26 @@ async function new_type_quickly() {
             default: "app",
         });
 
-        const ng_new =
-            `ng.cmd new ${app_name} --prefix=${app_prefix} --package-manager=npm --style=css --routing=true --standalone=true --strict=true --ssr=false --skip-git=true --skip-install=true --skip-tests=false --server-routing=false`;
+        const app_confim = await select({
+            message: `即将使用下列参数创建应用，请确认：\n应用名称：${app_name}\n组件前缀：${app_prefix}\n包管理器：NPM\n没有CSS预处理器\n添加路由Routing\nStandalone独立模式\nStrict严格模式\n没有SSR和SSG\n跳过Git初始化\n跳过下载依赖\n创建测试文件\n不使用服务器路由`,
+            choices: [
+                { name: '确认', value: 'true' },
+                { name: '取消', value: 'false' },
+            ]
+        });
 
-        await execa(ng_new, { stdio: "inherit" });
-
+        switch (app_confim) {
+            case 'true':
+                const ng_new = `ng.cmd new ${app_name} --prefix=${app_prefix} --package-manager=npm --style=css --routing=true --standalone=true --strict=true --ssr=false --skip-git=true --skip-install=true --skip-tests=false --server-routing=false`;
+                await execa(ng_new, { stdio: "inherit" });
+                console.log(`\n\n项目创建完毕，请尽快执行后续命令以补全依赖`)
+                console.log(`\ncd ${app_name}\n\nnpm install`)
+                break;
+            case 'false':
+                break;
+            default:
+                break;
+        }
     } catch (error: any) {
         console.log(error.message);
     }

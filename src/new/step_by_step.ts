@@ -30,7 +30,7 @@ async function new_type_step_by_step() {
                 { name: "css", value: "css" },
                 { name: "sass", value: "sass" },
                 { name: "scss", value: "scss" },
-                { name: "stylus", value: "stylus" },
+                { name: "less", value: "less" },
             ],
             default: "npm",
         });
