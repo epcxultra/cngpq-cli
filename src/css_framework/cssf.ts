@@ -68,7 +68,11 @@ async function command_cssf() {
     create_tailwindcss_file();
     insert_tailwindcss_config();
 
-    daisyui(select_package_manager);
+    setTimeout(() => {
+        daisyui(select_package_manager); // 这里写延迟后的逻辑
+    }, 1000); // 1000 毫秒 = 1 秒
+
+
 }
 
 async function daisyui(app_pm: string) {
@@ -138,7 +142,7 @@ async function create_tailwindcss_file() {
             filePath,
             JSON.stringify(content, null, 2),
         );
-        console.log(`已创建${filePath}并写入相关配置`);
+        console.log(`\n已创建${filePath}并写入相关配置\n`);
     } catch (error) {
         console.error("写入文件时出错:", error);
     }
@@ -163,7 +167,7 @@ async function insert_tailwindcss_config() {
         // 写回文件
         await fs.writeFile(css_filepath, css_file_content);
 
-        console.log("tailwindcss配置已追加到 style.scss 文件末尾");
+        console.log("tailwindcss配置已追加到 style.scss 文件末尾\n");
     } catch (error) {
         console.error("操作失败:", error);
     }
@@ -183,12 +187,12 @@ async function insert_daisyui_config() {
         }
 
         // 追加内容
-        css_file_content += `\n@plugin "daisyui" { theme: light --default, dark }\n/* 更多daisyui主题请参考：https://daisyui.com/docs/themes/ */`;
+        css_file_content += `\n@plugin "daisyui" { themes: light --default, dark }\n/* 更多daisyui主题请参考：https://daisyui.com/docs/themes/ */`;
 
         // 写回文件
         await fs.writeFile(css_filepath, css_file_content);
 
-        console.log("daisyui配置已追加到 style.scss 文件末尾");
+        console.log("daisyui配置已追加到 style.scss 文件末尾\n");
     } catch (error) {
         console.error("操作失败:", error);
     }
