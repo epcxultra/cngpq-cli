@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { Command } from "commander";
 import command_new from "./new/new";
-import command_cssf from "./css_framework/cssf";
+import {command_cssf, daisyui} from "./css_framework/cssf";
 
 const program = new Command();
 
@@ -26,8 +26,13 @@ program
 program
     .command("cssf")
     .description("添加CSS框架到Angular项目")
-    .action(() => {
-        command_cssf();
+    .option('--daisyui', '添加Daisyui到项目中')
+    .action((options) => {
+        if (options.daisyui) {
+            daisyui('pnpm');
+        } else {
+            command_cssf();
+        }
     });
 
 program.parse();

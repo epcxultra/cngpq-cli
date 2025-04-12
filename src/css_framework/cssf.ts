@@ -30,6 +30,7 @@ async function command_cssf() {
         "postcss",
         "--force",
     ];
+
     switch (select_css_framework) {
         case "bootstrap":
             break;
@@ -66,6 +67,54 @@ async function command_cssf() {
 
     create_tailwindcss_file();
     insert_tailwindcss_config();
+
+    daisyui(select_package_manager);
+}
+
+async function daisyui(app_pm: string) {
+    const daisyui = await select({
+        message: '是否添加Daisyui？这是一个非常流行的TailwindcssUI库',
+        choices: [
+            { name: '添加', value: 'true' },
+            { name: '不添加', value: 'false' }
+        ]
+    });
+
+    switch (daisyui) {
+        case 'true':
+            switch (app_pm) {
+                case 'npm':
+                    await execa("npm", [
+                        "install",
+                        "-D",
+                        "daisyui@latest",
+                    ], { stdio: "inherit" });
+                    break;
+                case 'pnpm':
+                    await execa("pnpm", [
+                        "add",
+                        "-D",
+                        "daisyui@latest",
+                    ], { stdio: "inherit" });
+                    break;
+                case 'yarn':
+                    await execa("yarn", [
+                        "add",
+                        "-D",
+                        "daisyui@latest",
+                    ], { stdio: "inherit" });
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'false':
+            break;
+        default:
+            break;
+    }
+
+    insert_daisyui_config();
 }
 
 async function create_tailwindcss_file() {
@@ -114,10 +163,35 @@ async function insert_tailwindcss_config() {
         // 写回文件
         await fs.writeFile(css_filepath, css_file_content);
 
-        console.log("内容已成功追加到 style.scss 文件末尾");
+        console.log("tailwindcss配置已追加到 style.scss 文件末尾");
+    } catch (error) {
+        console.error("操作失败:", error);
+    }
+}
+
+async function insert_daisyui_config() {
+    const css_filepath = path.join(process.cwd(), "\\src\\styles.scss");
+
+    try {
+        // 读取文件内容
+        let css_file_content = await fs.readFile(css_filepath, "utf8");
+
+        // 检查文件末尾是否有换行
+        if (css_file_content.endsWith("\n")) {
+            // 如果有换行，直接去掉
+            css_file_content = css_file_content.slice(0, -1);
+        }
+
+        // 追加内容
+        css_file_content += `\n@plugin "daisyui" { theme: light --default, dark }\n/* 更多daisyui主题请参考：https://daisyui.com/docs/themes/ */`;
+
+        // 写回文件
+        await fs.writeFile(css_filepath, css_file_content);
+
+        console.log("daisyui配置已追加到 style.scss 文件末尾");
     } catch (error) {
         console.error("操作失败:", error);
     }
 }
 /* export */
-export default command_cssf;
+export { command_cssf, daisyui };
