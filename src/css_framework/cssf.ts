@@ -39,21 +39,18 @@ async function command_cssf() {
                 case "npm":
                     await execa("npm", [
                         "install",
-                        "-D",
                         ...install_parameter,
                     ], { stdio: "inherit" });
                     break;
                 case "pnpm":
                     await execa("pnpm", [
                         "add",
-                        "-D",
                         ...install_parameter,
                     ], { stdio: "inherit" });
                     break;
                 case "yarn":
                     await execa("yarn", [
                         "add",
-                        "-D",
                         ...install_parameter,
                     ], { stdio: "inherit" });
                     break;
@@ -187,7 +184,7 @@ async function insert_daisyui_config() {
         }
 
         // 追加内容
-        css_file_content += `\n@plugin "daisyui" { themes: light --default, dark }\n/* 更多daisyui主题请参考：https://daisyui.com/docs/themes/ */`;
+        css_file_content += `\n@plugin "daisyui" { themes: cupcake --default, dracula }\n/* 更多daisyui主题请参考：https://daisyui.com/docs/themes/ */`;
 
         // 写回文件
         await fs.writeFile(css_filepath, css_file_content);
