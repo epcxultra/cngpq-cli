@@ -26,7 +26,7 @@ async function new_type_quickly() {
             case 'true':
                 const ng_new = `ng.cmd new ${app_name} --prefix=${app_prefix} --package-manager=npm --style=css --routing=true --standalone=true --strict=true --ssr=false --skip-git=true --skip-install=true --skip-tests=false --server-routing=false`;
                 await execa(ng_new, { stdio: "inherit" });
-                console.log(`\n\n项目创建完毕，请尽快执行后续命令以补全依赖`)
+                console.log(`\n\n项目创建完毕，请尽快执行npm install以补全依赖`)
                 console.log(`\ncd ${app_name}\n\nnpm install`)
                 break;
             case 'false':

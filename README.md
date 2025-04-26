@@ -14,5 +14,6 @@ This is not angular offical Tools.
 ### cssf
 给项目添加一个css框架，目前只有tailwindcss是可用的
 
-#### --daisyui
+cssf 有一个参数 --daisyui
+
 给已经添加了tailwindcss框架的项目添加daisyui
