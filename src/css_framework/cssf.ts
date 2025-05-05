@@ -184,7 +184,7 @@ async function insert_daisyui_config() {
         }
 
         // 追加内容
-        css_file_content += `\n@plugin "daisyui" { themes: cupcake --default, dracula }\n/* 更多daisyui主题请参考：https://daisyui.com/docs/themes/ */`;
+        css_file_content += `\n@plugin "daisyui" { themes: fantasy --default, dracula }\n/* 更多daisyui主题请参考：https://daisyui.com/docs/themes/ */`;
 
         // 写回文件
         await fs.writeFile(css_filepath, css_file_content);
